@@ -232,6 +232,7 @@ function love.update(dt)
     --
     -- paddles can move no matter what state we're in
     --
+ --[[
     -- player 1
     if love.keyboard.isDown('w') then
         player1.dy = -PADDLE_SPEED
@@ -240,7 +241,8 @@ function love.update(dt)
     else
         player1.dy = 0
     end
-
+]]
+--[[
     -- player 2
     if love.keyboard.isDown('up') then
         player2.dy = -PADDLE_SPEED
@@ -249,6 +251,34 @@ function love.update(dt)
     else
         player2.dy = 0
     end
+]]
+
+    -- player1AI
+    if ball.dx > 0 then
+        if player1.y + player1.height / 2 < VIRTUAL_HEIGHT / 2 - 2 then
+            player1.dy = PADDLE_SPEED
+        elseif player1.y + player1.height / 2 > VIRTUAL_HEIGHT / 2 + 2 then
+            player1.dy = -PADDLE_SPEED
+        else
+            player1.dy = 0
+        end
+    elseif player1.y + player1.height / 2 < ball.y + ball.height / 2 - 2 then
+        player1.dy = PADDLE_SPEED
+    elseif player1.y + player1.height / 2 > ball.y + ball.height / 2 + 2 then
+        player1.dy = -PADDLE_SPEED
+    else
+        player1.dy = 0
+    end
+
+    -- player2AI
+    if player2.y + player2.height / 2 < ball.y + ball.height / 2 - 2 then
+        player2.dy = PADDLE_SPEED
+    elseif player2.y + player2.height / 2 > ball.y + ball.height / 2 + 2 then
+        player2.dy = -PADDLE_SPEED
+    else
+        player2.dy = 0
+    end
+
 
     -- update our ball based on its DX and DY only if we're in play state;
     -- scale the velocity by dt so movement is framerate-independent
