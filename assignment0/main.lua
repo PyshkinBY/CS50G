@@ -254,6 +254,7 @@ function love.update(dt)
 ]]
 
     -- player1AI
+    -- paddle center it self when ball moves away from it
     if ball.dx > 0 then
         if player1.y + player1.height / 2 < VIRTUAL_HEIGHT / 2 - 2 then
             player1.dy = PADDLE_SPEED
@@ -271,6 +272,7 @@ function love.update(dt)
     end
 
     -- player2AI
+    -- paddle constantly following ball
     if player2.y + player2.height / 2 < ball.y + ball.height / 2 - 2 then
         player2.dy = PADDLE_SPEED
     elseif player2.y + player2.height / 2 > ball.y + ball.height / 2 + 2 then
